@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: forohub
+    version: 1
+  profiles:
+    active:
+    - dev  
+  

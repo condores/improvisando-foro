@@ -1,0 +1,38 @@
+services:
+  postgres-dev:
+    image: 'postgres:latest'
+    environment:
+      - 'POSTGRES_DB=${USERNAME_DB_DEV}'
+      - 'POSTGRES_PASSWORD=${PASSWORD_DB_DEV}'
+      - 'POSTGRES_USER=${POSTGRES_USER}'
+    ports:
+      - '5433:5432'
+    volumes:
+      - postgres_dev_data:/var/lib/postgresql/data
+
+  postgres-prod:
+    image: 'postgres:latest'
+    environment:
+      - 'POSTGRES_DB=${USERNAME_DB_PROD}'
+      - 'POSTGRES_PASSWORD=${PASSWORD_DB_PROD}'
+      - 'POSTGRES_USER=${POSTGRES_USER}'
+    ports:
+      - '5434:5432'
+    volumes:
+      - postgres_prod_data:/var/lib/postgresql/data
+
+  postgres-test:
+    image: 'postgres:latest'
+    environment:
+      - 'POSTGRES_DB=${USERNAME_DB_TEST}'
+      - 'POSTGRES_PASSWORD=${PASSWORD_DB_TEST}'
+      - 'POSTGRES_USER=${POSTGRES_USER}'
+    ports:
+      - '5435:5432'
+    volumes:
+      - postgres_test_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_dev_data:
+  postgres_prod_data:
+  postgres_test_data:

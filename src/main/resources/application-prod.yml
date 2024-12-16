@@ -1,0 +1,7 @@
+spring:
+  profiles: prod
+  datasource:
+    url: jdbc:postgresql://localhost:5434/forohub_prod
+    username: ${USERNAME_DB_PROD}
+    password: ${PASSWORD_DB_PROD}
+    driver-class-name: org.postgresql.Driver
