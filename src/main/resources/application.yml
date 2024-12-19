@@ -3,6 +3,4 @@ spring:
     name: forohub
     version: 1
   profiles:
-    active:
-    - dev  
-  
+    active: dev

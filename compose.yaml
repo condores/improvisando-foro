@@ -1,37 +1,42 @@
 services:
   postgres-dev:
-    image: 'postgres:latest'
+    image: 'postgres:14.15-alpine3.21'
     environment:
-      - 'POSTGRES_DB=${USERNAME_DB_DEV}'
+      - 'POSTGRES_DB=${DB_DEV}'
       - 'POSTGRES_PASSWORD=${PASSWORD_DB_DEV}'
-      - 'POSTGRES_USER=${POSTGRES_USER}'
+      - 'POSTGRES_USER=${POSTGRES_USER_DEV}'
     ports:
       - '5433:5432'
     volumes:
       - postgres_dev_data:/var/lib/postgresql/data
+    profiles:
+      - dev
 
   postgres-prod:
-    image: 'postgres:latest'
+    image: 'postgres:14.15-alpine3.21'
     environment:
-      - 'POSTGRES_DB=${USERNAME_DB_PROD}'
+      - 'POSTGRES_DB=${DB_PROD}'
       - 'POSTGRES_PASSWORD=${PASSWORD_DB_PROD}'
-      - 'POSTGRES_USER=${POSTGRES_USER}'
+      - 'POSTGRES_USER=${POSTGRES_USER_PROD}'
     ports:
       - '5434:5432'
     volumes:
       - postgres_prod_data:/var/lib/postgresql/data
+    profiles:
+      - prod
 
   postgres-test:
-    image: 'postgres:latest'
+    image: 'postgres:14.15-alpine3.21'
     environment:
-      - 'POSTGRES_DB=${USERNAME_DB_TEST}'
+      - 'POSTGRES_DB=${DB_TEST}'
       - 'POSTGRES_PASSWORD=${PASSWORD_DB_TEST}'
-      - 'POSTGRES_USER=${POSTGRES_USER}'
+      - 'POSTGRES_USER=${POSTGRES_USER_TEST}'
     ports:
       - '5435:5432'
     volumes:
       - postgres_test_data:/var/lib/postgresql/data
-
+    profiles:
+      - test
 volumes:
   postgres_dev_data:
   postgres_prod_data:
