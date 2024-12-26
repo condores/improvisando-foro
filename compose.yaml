@@ -8,7 +8,7 @@ services:
     ports:
       - '5433:5432'
     volumes:
-      - postgres_dev_data:/var/lib/postgresql/data
+      - postgres_dev_data1:/var/lib/postgresql/data
     profiles:
       - dev
 
@@ -38,6 +38,6 @@ services:
     profiles:
       - test
 volumes:
-  postgres_dev_data:
+  postgres_dev_data1:
   postgres_prod_data:
   postgres_test_data:
