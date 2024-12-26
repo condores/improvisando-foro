@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.dako.forohub.exceptions.DuplicateResourceException;
 import com.dako.forohub.response.DataResponse;
 import com.dako.forohub.user.domain.User;
 import com.dako.forohub.user.dto.UserRegisterRequestDto;
@@ -17,7 +18,6 @@ import jakarta.validation.Valid;
 @RequestMapping("user")
 public class UserController {
 
-    // Constructor for UserController
     private final UserRepository userRepository;
 
     public UserController(UserRepository userRepository) {
@@ -27,10 +27,18 @@ public class UserController {
     @PostMapping
     public ResponseEntity<DataResponse<Void>> createUser(@RequestBody @Valid UserRegisterRequestDto userDto) {
         if (userRepository.existsByEmail(userDto.email())) {
-            return ResponseEntity.badRequest().body(new DataResponse<>("Email already exists", 400));
+            throw new DuplicateResourceException("Email already exists");
         }
         if (userRepository.existsByUsername(userDto.username())) {
-            return ResponseEntity.badRequest().body(new DataResponse<>("Username already exists", 400));
+            throw new DuplicateResourceException("Username already exists");
+        }
+        if (userDto.password().length < 8 ||
+                !new String(userDto.password()).matches(".*[A-Z].*") ||
+                !new String(userDto.password()).matches(".*\\d.*")) {
+            return ResponseEntity.badRequest()
+                    .body(new DataResponse<>(
+                            "Password must be at least 8 characters long, contain at least one uppercase letter and one number",
+                            400));
         }
 
         User user = new User();
@@ -41,5 +49,4 @@ public class UserController {
         userRepository.save(user);
         return ResponseEntity.ok(new DataResponse<>("User created successfully", 200));
     }
-
 }
