@@ -10,6 +10,8 @@ import com.dako.forohub.user.dto.UserRegisterRequestDto;
 import com.dako.forohub.user.repository.RoleRepository;
 import com.dako.forohub.user.repository.UserRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class UserService {
 
@@ -21,6 +23,7 @@ public class UserService {
         this.roleRepository = roleRepository;
     }
 
+    @Transactional
     public void createUser(UserRegisterRequestDto userDto) {
         if (userRepository.existsByEmail(userDto.email())) {
             throw new DuplicateResourceException("Email already exists");

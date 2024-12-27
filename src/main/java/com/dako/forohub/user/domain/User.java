@@ -55,9 +55,15 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles.stream()
-                .map(role -> new SimpleGrantedAuthority(role.getName().name())) // Convertir RolesEnum a String
-                .collect(Collectors.toList());
+        Set<SimpleGrantedAuthority> authorities = roles.stream()
+                .map(role -> {
+                    SimpleGrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + role.getName().name());
+                    System.out.println("Authority created: " + authority.getAuthority());
+                    return authority;
+                })
+                .collect(Collectors.toSet());
+        System.out.println("All authorities: " + authorities);
+        return authorities;
     }
 
     @Override

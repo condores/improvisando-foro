@@ -15,12 +15,12 @@ import com.dako.forohub.user.service.UserService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("user")
-public class UserController {
+@RequestMapping("signup")
+public class SignUpService {
 
     private final UserService userService;
 
-    public UserController(UserService userService) {
+    public SignUpService(UserService userService) {
         this.userService = userService;
     }
 
