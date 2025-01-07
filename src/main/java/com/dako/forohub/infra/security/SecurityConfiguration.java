@@ -25,21 +25,20 @@ public class SecurityConfiguration {
         this.securityFilter = securityFilter;
     }
 
-    @Bean // +
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {// +
-        {
-            return httpSecurity.csrf(csrf -> csrf.disable())
-                    .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                    .authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
-                            .requestMatchers(HttpMethod.POST, "/login").permitAll()
-                            .requestMatchers(HttpMethod.POST,"/signup").permitAll()
-                            .requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll()
-                            .requestMatchers("/admin/**").hasRole("ADMIN")
-                            .anyRequest()
-                            .authenticated())
-                    .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
-                    .build();
-        }
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+        return httpSecurity.csrf(csrf -> csrf.disable())
+                .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
+                        .requestMatchers(HttpMethod.POST, "/login").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/signup").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/topics/all").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/topics/**").authenticated()
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll()
+                        .anyRequest().permitAll()) // Permitir todas las demás solicitudes
+                .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
+                .build();
     }
 
     @Bean

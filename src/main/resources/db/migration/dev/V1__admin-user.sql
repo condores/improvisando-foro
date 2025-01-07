@@ -1,6 +1,6 @@
 -- Insertar un usuario administrador con contraseña encriptada
 INSERT INTO users (name, username, email, password, is_active) 
-VALUES ('admin', 'admin', 'admin@admin.co', '$2a$10$rPiEAgSYQfJGrAhDfDlZjOtVKlEZj7vqP8YzUVL4j6yfXLQSF1yPG', TRUE);
+VALUES ('admin', 'admin', 'admin@admin.cos', 'dako', TRUE);
 
 -- Obtener el ID del usuario admin recién insertado
 DO $$

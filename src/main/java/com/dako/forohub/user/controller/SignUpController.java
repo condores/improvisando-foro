@@ -1,6 +1,5 @@
 package com.dako.forohub.user.controller;
 
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,11 +15,11 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("signup")
-public class SignUpService {
+public class SignUpController {
 
     private final UserService userService;
 
-    public SignUpService(UserService userService) {
+    public SignUpController(UserService userService) {
         this.userService = userService;
     }
 
@@ -36,5 +35,4 @@ public class SignUpService {
         }
     }
 
-    
 }

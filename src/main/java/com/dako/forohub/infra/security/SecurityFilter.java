@@ -8,6 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.dako.forohub.infra.exceptions.TokenVerificationException;
 import com.dako.forohub.user.domain.User;
 import com.dako.forohub.user.repository.UserRepository;
 
@@ -29,20 +30,24 @@ public class SecurityFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response,
-            @NonNull FilterChain filterChain)
-            throws ServletException, IOException {
-        String authHeader = request.getHeader("Authorization");
-        if (authHeader != null && authHeader.startsWith("Bearer ")) {
-            String token = authHeader.replace("Bearer ", "");
-            var userName = tokenService.getSubject(token);
-            if (userName != null) {
-                User user = userRepository.findByUsername(userName);
-                if (user != null) {
-                    var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
-                    SecurityContextHolder.getContext().setAuthentication(authentication);
+            @NonNull FilterChain filterChain) throws ServletException, IOException {
+        try {
+            String authHeader = request.getHeader("Authorization");
+            if (authHeader != null && authHeader.startsWith("Bearer ")) {
+                String token = authHeader.replace("Bearer ", "");
+                var userName = tokenService.getSubject(token);
+                if (userName != null) {
+                    User user = userRepository.findByUsername(userName);
+                    if (user != null) {
+                        var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+                        SecurityContextHolder.getContext().setAuthentication(authentication);
+                    }
                 }
             }
+            filterChain.doFilter(request, response);
+        } catch (TokenVerificationException e) {
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.getWriter().write("Invalid token");
         }
-        filterChain.doFilter(request, response);
     }
 }

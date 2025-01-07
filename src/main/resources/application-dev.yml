@@ -22,4 +22,7 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
 logging:
   level:
-    '[org.flywaydb]': debug   
+    '[org.flywaydb]': debug 
+server:
+  error:
+    include-stacktrace: never
