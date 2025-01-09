@@ -1,36 +1,33 @@
 package com.dako.forohub.admin.controller;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.dako.forohub.response.DataResponse;
-import com.dako.forohub.user.dto.InfoUsers;
-import com.dako.forohub.user.repository.UserRepository;
+import com.dako.forohub.admin.service.AdminUserService;
+import com.dako.forohub.infra.responses.DataResponse;
+import com.dako.forohub.user.dtos.UserInfoDto;
 
 @RestController
-@RequestMapping("/admin/users")
+@RequestMapping("admin")
 @PreAuthorize("hasRole('ADMIN')")
 public class AdminController {
 
-    private final UserRepository userRepository;
+    private final AdminUserService adminUserService;
 
-    public AdminController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public AdminController(AdminUserService adminUserService) {
+        this.adminUserService = adminUserService;
     }
 
-    @GetMapping
-    public ResponseEntity<DataResponse<List<InfoUsers>>> getAllUsers() {
-        var users = userRepository.findAllByIsActiveTrue();
-        List<InfoUsers> infoUsersList = users.stream()
-                .map(InfoUsers::new) // Convertir cada User a InfoUsers
-                .collect(Collectors.toList());
-        return ResponseEntity.ok(new DataResponse<>("Users retrieved successfully", 200, infoUsersList));
+    @GetMapping("users")
+    public ResponseEntity<DataResponse<Page<UserInfoDto>>> getAllUsers(
+            @PageableDefault(size = 5, page = 0) Pageable pageable) {
+        Page<UserInfoDto> infoUserPage = adminUserService.getAllActiveUsers(pageable);
+        return ResponseEntity.ok(new DataResponse<>("Users retrieved successfully", 200, infoUserPage));
     }
-
 }

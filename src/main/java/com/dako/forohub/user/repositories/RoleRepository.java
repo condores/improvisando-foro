@@ -1,4 +1,4 @@
-package com.dako.forohub.user.repository;
+package com.dako.forohub.user.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

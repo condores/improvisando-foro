@@ -18,11 +18,11 @@ spring:
     show-sql: true
     properties:
       hibernate:
-        format_sql: true
+        '[format_sql]': true
         dialect: org.hibernate.dialect.PostgreSQLDialect
+api:
+  token:
+    security: ${API_TOKEN_SECRET} 
 logging:
   level:
     '[org.flywaydb]': debug 
-server:
-  error:
-    include-stacktrace: never

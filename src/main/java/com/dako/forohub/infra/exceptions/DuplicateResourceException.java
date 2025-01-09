@@ -1,4 +1,4 @@
-package com.dako.forohub.exceptions;
+package com.dako.forohub.infra.exceptions;
 
 public class DuplicateResourceException extends RuntimeException {
     public DuplicateResourceException(String message) {

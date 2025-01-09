@@ -1,4 +1,4 @@
-package com.dako.forohub.response;
+package com.dako.forohub.infra.responses;
 
 public class DataResponse<T> extends ApiResponse {
     private T data;

@@ -1,4 +1,4 @@
-package com.dako.forohub.user.controller;
+package com.dako.forohub.authentication.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.dako.forohub.authentication.dto.LoginRequestDto;
+import com.dako.forohub.infra.responses.DataResponse;
 import com.dako.forohub.infra.security.JWTToken;
 import com.dako.forohub.infra.security.TokenService;
-import com.dako.forohub.response.DataResponse;
 import com.dako.forohub.user.domain.User;
-import com.dako.forohub.user.dto.LoginRequestDto;
-import com.dako.forohub.user.repository.UserRepository;
+import com.dako.forohub.user.repositories.UserRepository;
 
 import jakarta.validation.Valid;
 

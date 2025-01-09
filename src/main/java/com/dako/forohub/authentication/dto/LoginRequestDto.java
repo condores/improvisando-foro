@@ -1,4 +1,4 @@
-package com.dako.forohub.user.dto;
+package com.dako.forohub.authentication.dto;
 
 import jakarta.validation.constraints.NotBlank;
 

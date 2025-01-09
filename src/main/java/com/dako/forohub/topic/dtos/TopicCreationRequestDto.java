@@ -1,10 +1,10 @@
-package com.dako.forohub.topic.dto;
+package com.dako.forohub.topic.dtos;
 
 import java.time.LocalDateTime;
 
 import jakarta.validation.constraints.NotBlank;
 
-public record NewTopicRequestDto(
+public record TopicCreationRequestDto(
                 @NotBlank(message = "el campo titulo es obligatorio") String title,
                 @NotBlank(message = "Debes incluir un mensaje en tu post") String message,
                 LocalDateTime createdAt) {

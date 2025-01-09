@@ -4,6 +4,7 @@ spring:
     version: 1
   profiles:
     active: dev
-api:
-  token:
-    security: ${API_TOKEN_SECRET} 
+
+server:
+  error:
+    include-stacktrace: never

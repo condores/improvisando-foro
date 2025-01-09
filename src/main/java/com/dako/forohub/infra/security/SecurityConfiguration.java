@@ -33,7 +33,11 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.POST, "/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/signup").permitAll()
                         .requestMatchers(HttpMethod.GET, "/topics/all").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/topics/{id}/topics").permitAll()
                         .requestMatchers(HttpMethod.GET, "/topics/**").authenticated()
+                        .requestMatchers(HttpMethod.DELETE, "/topics/**").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/topics/**").authenticated()
+                        .requestMatchers(HttpMethod.PATCH, "/topics/**").authenticated()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll()
                         .anyRequest().permitAll()) // Permitir todas las demás solicitudes
@@ -51,15 +55,5 @@ public class SecurityConfiguration {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
-    /*
-     * http// +
-     * .authorizeHttpRequests(authorize -> authorize// +
-     * .anyRequest().permitAll() // Permitir todas las solicitudes sin
-     * autenticación//+
-     * )// +
-     * .csrf(csrf -> csrf.disable()); // Desactivar CSRF si es necesario//+
-     * return http.build();// +
-     */
 
 }

@@ -10,7 +10,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.dako.forohub.infra.exceptions.TokenVerificationException;
 import com.dako.forohub.user.domain.User;
-import com.dako.forohub.user.repository.UserRepository;
+import com.dako.forohub.user.repositories.UserRepository;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
