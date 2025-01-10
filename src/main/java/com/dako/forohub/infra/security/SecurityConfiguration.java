@@ -34,6 +34,7 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.POST, "/signup").permitAll()
                         .requestMatchers(HttpMethod.GET, "/topics/all").permitAll()
                         .requestMatchers(HttpMethod.GET, "/topics/{id}/topics").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/topics/{id}").permitAll()
                         .requestMatchers(HttpMethod.GET, "/topics/**").authenticated()
                         .requestMatchers(HttpMethod.DELETE, "/topics/**").authenticated()
                         .requestMatchers(HttpMethod.POST, "/topics/**").authenticated()

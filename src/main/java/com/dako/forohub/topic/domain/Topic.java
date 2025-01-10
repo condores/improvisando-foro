@@ -2,6 +2,7 @@ package com.dako.forohub.topic.domain;
 
 import java.time.LocalDateTime;
 
+import com.dako.forohub.Course.domain.Course;
 import com.dako.forohub.user.domain.User;
 
 import jakarta.persistence.Column;
@@ -54,6 +55,10 @@ public class Topic {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "author_id", nullable = false)
     private User author;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id", nullable = false)
+    private Course course;
 
     @PrePersist
     protected void onCreate() {

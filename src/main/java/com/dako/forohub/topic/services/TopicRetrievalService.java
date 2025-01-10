@@ -71,4 +71,17 @@ public class TopicRetrievalService {
                 topic.getAuthor().getName(),
                 topic.getUpdatedAt().toLocalDate()));
     }
+
+    public TopicDto getById(Long id) {
+        Topic topic = topicRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Topic not found with id: " + id));
+        return new TopicDto(
+                topic.getId(),
+                topic.getTitle(),
+                topic.getMessage(),
+                topic.getCreatedAt().toLocalDate(),
+                topic.getStatus(),
+                topic.getAuthor().getName(),
+                topic.getUpdatedAt().toLocalDate());
+    }
 }

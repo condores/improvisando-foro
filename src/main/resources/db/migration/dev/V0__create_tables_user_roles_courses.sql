@@ -16,6 +16,13 @@ CREATE TABLE IF NOT EXISTS users (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Crear la tabla courses si no existe
+CREATE TABLE IF NOT EXISTS courses (
+    id BIGSERIAL PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    category VARCHAR(50) NOT NULL
+);
+
 -- Crear la tabla topics si no existe
 CREATE TABLE IF NOT EXISTS topics (
     id BIGSERIAL PRIMARY KEY,
@@ -25,7 +32,9 @@ CREATE TABLE IF NOT EXISTS topics (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     status VARCHAR(50) NOT NULL,
     author_id BIGINT NOT NULL,
-    FOREIGN KEY (author_id) REFERENCES users(id)
+    category_id BIGINT,
+    FOREIGN KEY (author_id) REFERENCES users(id),
+    FOREIGN KEY (category_id) REFERENCES courses(id)
 );
 
 -- Crear la tabla user_roles para la relación muchos a muchos entre users y roles si no existe

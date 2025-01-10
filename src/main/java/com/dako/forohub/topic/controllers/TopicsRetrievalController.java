@@ -19,6 +19,7 @@ import com.dako.forohub.topic.services.TopicRetrievalService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("topics")
 @Tag(name = "Topic Retrieval", description = "Endpoints for retrieving topics")
@@ -42,8 +43,8 @@ public class TopicsRetrievalController {
     }
 
     @GetMapping("/mine")
-    
-    @Operation(summary = "Get My Topics", description = "Retrieve topics created by the authenticated user",security = @SecurityRequirement(name = "bearer-key"))
+
+    @Operation(summary = "Get My Topics", description = "Retrieve topics created by the authenticated user", security = @SecurityRequirement(name = "bearer-key"))
     public ResponseEntity<DataResponse<Page<TopicDto>>> getMyTopics(
             @PageableDefault(size = 5, page = 0, sort = "createdAt", direction = Direction.DESC) Pageable pageable) {
         try {
@@ -59,11 +60,23 @@ public class TopicsRetrievalController {
         }
     }
 
-    @GetMapping
+    @GetMapping("all")
     @Operation(summary = "Get All Topics", description = "Retrieve all topics in the forum")
     public ResponseEntity<DataResponse<Page<TopicDto>>> getAllTopics(
-            @PageableDefault(size = 10, page = 0, sort = "createdAt", direction = Direction.DESC) Pageable pageable) {
+            @PageableDefault(size = 10, page = 0, sort = "createdAt", direction = Direction.ASC) Pageable pageable) {
         Page<TopicDto> topics = topicRetrievalService.getAllTopics(pageable);
         return ResponseEntity.ok(new DataResponse<>("Topics retrieved successfully", HttpStatus.OK.value(), topics));
+    }
+
+    @GetMapping("/{id}")
+    @Operation(summary = "Get Topic by ID", description = "Retrieve a specific topic by its ID")
+    public ResponseEntity<DataResponse<TopicDto>> getTopicById(@PathVariable Long id) {
+        try {
+            TopicDto topic = topicRetrievalService.getById(id);
+            return ResponseEntity.ok(new DataResponse<>("Topic retrieved successfully", HttpStatus.OK.value(), topic));
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new DataResponse<>(e.getMessage(), HttpStatus.NOT_FOUND.value(), null));
+        }
     }
 }
