@@ -11,8 +11,12 @@ import com.dako.forohub.infra.exceptions.ResourceNotFoundException;
 import com.dako.forohub.infra.responses.ApiResponse;
 import com.dako.forohub.topic.services.TopicDeletionService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 @RestController
 @RequestMapping("topics")
+@Tag(name = "Topic Deletion", description = "Endpoints for deleting topics")
 public class TopicsDeletionController {
 
     private final TopicDeletionService topicDeletionService;
@@ -22,6 +26,7 @@ public class TopicsDeletionController {
     }
 
     @DeleteMapping("delete/{idTopic}")
+    @Operation(summary = "Delete a Topic", description = "Endpoint to delete a topic by its ID",security = @SecurityRequirement(name = "bearer-key"))
     public ResponseEntity<ApiResponse> deleteTopic(@PathVariable Long idTopic) {
         try {
             topicDeletionService.deleteTopic(idTopic);

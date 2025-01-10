@@ -14,10 +14,14 @@ import com.dako.forohub.infra.responses.ApiResponse;
 import com.dako.forohub.topic.dtos.TopicCreationRequestDto;
 import com.dako.forohub.topic.services.TopicCreationService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("topics")
+@Tag(name = "Topic Creation", description = "Endpoints for creating new topics")
 public class TopicsCreationController {
 
     private final TopicCreationService topicCreationService;
@@ -27,6 +31,7 @@ public class TopicsCreationController {
     }
 
     @PostMapping("new")
+    @Operation(summary = "Create a New Topic", description = "Endpoint to create a new topic in the forum",security = @SecurityRequirement(name = "bearer-key"))
     public ResponseEntity<ApiResponse> createNewTopic(@RequestBody @Valid TopicCreationRequestDto newTopicRequestDto) {
         try {
             topicCreationService.createNewTopic(newTopicRequestDto.title(), newTopicRequestDto.message(),

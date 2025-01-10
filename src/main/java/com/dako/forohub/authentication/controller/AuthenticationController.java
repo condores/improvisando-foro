@@ -19,10 +19,13 @@ import com.dako.forohub.infra.security.TokenService;
 import com.dako.forohub.user.domain.User;
 import com.dako.forohub.user.repositories.UserRepository;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/login")
+@Tag(name = "Authentication", description = "Endpoints for user authentication")
 public class AuthenticationController {
 
     private static final Logger logger = LoggerFactory.getLogger(AuthenticationController.class);
@@ -39,6 +42,7 @@ public class AuthenticationController {
     }
 
     @PostMapping
+    @Operation(summary = "User Login", description = "Authenticate user and return JWT token")
     public ResponseEntity<?> login(@RequestBody @Valid LoginRequestDto loginRequestDto) {
         logger.info("Intento de login para el usuario: {}", loginRequestDto.username());
         try {

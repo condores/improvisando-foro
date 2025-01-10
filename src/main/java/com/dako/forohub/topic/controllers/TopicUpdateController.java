@@ -13,10 +13,14 @@ import com.dako.forohub.infra.responses.ApiResponse;
 import com.dako.forohub.topic.dtos.TopicUpdateDto;
 import com.dako.forohub.topic.services.TopicUpdateService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("topics")
+@Tag(name = "Topic Update", description = "Endpoints for updating topics")
 public class TopicUpdateController {
 
     private final TopicUpdateService topicUpdateService;
@@ -26,7 +30,8 @@ public class TopicUpdateController {
     }
 
     // Metodo para modificar un tema
-    @PatchMapping("update/{idTopic}")
+    @PatchMapping("{idTopic}")
+    @Operation(summary = "Update a Topic", description = "Endpoint to update an existing topic",security = @SecurityRequirement(name = "bearer-key"))
     public ResponseEntity<ApiResponse> updateTopic(@RequestBody @Valid TopicUpdateDto updateTopicDto,
             @PathVariable Long idTopic) {
         try {
