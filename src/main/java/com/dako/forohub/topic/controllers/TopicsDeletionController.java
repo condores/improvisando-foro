@@ -25,7 +25,7 @@ public class TopicsDeletionController {
         this.topicDeletionService = topicDeletionService;
     }
 
-    @DeleteMapping("delete/{idTopic}")
+    @DeleteMapping("{idTopic}")
     @Operation(summary = "Delete a Topic", description = "Endpoint to delete a topic by its ID",security = @SecurityRequirement(name = "bearer-key"))
     public ResponseEntity<ApiResponse> deleteTopic(@PathVariable Long idTopic) {
         try {

@@ -4,7 +4,8 @@ spring:
     version: 1
   profiles:
     active: dev
-
-server:
+  web:
+    resources:
+      add-mappings: false
   error:
     include-stacktrace: never

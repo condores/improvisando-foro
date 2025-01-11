@@ -1,16 +1,21 @@
 package com.dako.forohub.Course.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.dako.forohub.topic.domain.Topic;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -23,7 +28,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-@NoArgsConstructor(access = AccessLevel.PRIVATE) // Make all fields private and provide a constructor to create new instances with Builder pattern.
+@NoArgsConstructor
 public class Course {
 
     @Id
@@ -37,6 +42,8 @@ public class Course {
     @Column(nullable = false)
     private CourseCategoryEnum category;
 
-    
+    @OneToMany(mappedBy = "course", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
+    private List<Topic> topic = new ArrayList<>();
 
 }

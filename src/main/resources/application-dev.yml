@@ -26,3 +26,4 @@ api:
 logging:
   level:
     '[org.flywaydb]': debug 
+    

@@ -9,6 +9,6 @@ public record UserRegisterRequestDto(
                 @NotBlank @Size(min = 2, max = 10) String name,
                 @NotBlank @Size(min = 3, max = 10) String username,
                 @NotBlank @Email String email,
-                @NotNull @Size(min = 8) String password) {
+                @NotNull @Size(min = 8 , max = 10) String password) {
 
 }

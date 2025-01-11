@@ -7,8 +7,8 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dako.forohub.infra.exceptions.ResourceNotFoundException;
@@ -31,36 +31,20 @@ public class TopicsRetrievalController {
         this.topicRetrievalService = topicRetrievalService;
     }
 
-    @GetMapping("/authors/{id}/topics")
+    // Public endpoints
+    @GetMapping("/public/search_author")
     @Operation(summary = "Get Topics by Author ID", description = "Retrieve topics created by a specific author")
-    public ResponseEntity<DataResponse<Page<TopicDto>>> getTopicsByAuthorId(@PathVariable Long id,
+    public ResponseEntity<DataResponse<Page<TopicDto>>> getTopicsByAuthorId(
+            @RequestParam(name = "id") Long authorId,
             @PageableDefault(size = 5, page = 0, sort = "createdAt", direction = Direction.DESC) Pageable pageable) {
-        Page<TopicDto> topics = topicRetrievalService.allTopicsById(id, pageable);
-        if (topics == null || topics.isEmpty()) {
+        Page<TopicDto> topics = topicRetrievalService.allTopicsById(authorId, pageable);
+        if (topics.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.ok(new DataResponse<>("Topics retrieved successfully", HttpStatus.OK.value(), topics));
     }
 
-    @GetMapping("/mine")
-
-    @Operation(summary = "Get My Topics", description = "Retrieve topics created by the authenticated user", security = @SecurityRequirement(name = "bearer-key"))
-    public ResponseEntity<DataResponse<Page<TopicDto>>> getMyTopics(
-            @PageableDefault(size = 5, page = 0, sort = "createdAt", direction = Direction.DESC) Pageable pageable) {
-        try {
-            Page<TopicDto> topics = topicRetrievalService.getMyTopics(pageable);
-            if (topics == null || topics.isEmpty()) {
-                return ResponseEntity.noContent().build();
-            }
-            return ResponseEntity
-                    .ok(new DataResponse<>("Topics retrieved successfully", HttpStatus.OK.value(), topics));
-        } catch (ResourceNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(new DataResponse<>(e.getMessage(), HttpStatus.NOT_FOUND.value(), Page.empty()));
-        }
-    }
-
-    @GetMapping("all")
+    @GetMapping("/public/search_all")
     @Operation(summary = "Get All Topics", description = "Retrieve all topics in the forum")
     public ResponseEntity<DataResponse<Page<TopicDto>>> getAllTopics(
             @PageableDefault(size = 10, page = 0, sort = "createdAt", direction = Direction.ASC) Pageable pageable) {
@@ -68,15 +52,33 @@ public class TopicsRetrievalController {
         return ResponseEntity.ok(new DataResponse<>("Topics retrieved successfully", HttpStatus.OK.value(), topics));
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/public/search_topic")
     @Operation(summary = "Get Topic by ID", description = "Retrieve a specific topic by its ID")
-    public ResponseEntity<DataResponse<TopicDto>> getTopicById(@PathVariable Long id) {
+    public ResponseEntity<DataResponse<TopicDto>> getTopicById(@RequestParam(name = "id") Long topicId) {
         try {
-            TopicDto topic = topicRetrievalService.getById(id);
+            TopicDto topic = topicRetrievalService.getById(topicId);
             return ResponseEntity.ok(new DataResponse<>("Topic retrieved successfully", HttpStatus.OK.value(), topic));
         } catch (ResourceNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(new DataResponse<>(e.getMessage(), HttpStatus.NOT_FOUND.value(), null));
+        }
+    }
+
+    // Authenticated endpoints
+    @GetMapping("/mine")
+    @Operation(summary = "Get My Topics", description = "Retrieve topics created by the authenticated user", security = @SecurityRequirement(name = "bearer-key"))
+    public ResponseEntity<DataResponse<Page<TopicDto>>> getMyTopics(
+            @PageableDefault(size = 5, page = 0, sort = "createdAt", direction = Direction.DESC) Pageable pageable) {
+        try {
+            Page<TopicDto> topics = topicRetrievalService.getMyTopics(pageable);
+            if (topics.isEmpty()) {
+                return ResponseEntity.noContent().build();
+            }
+            return ResponseEntity
+                    .ok(new DataResponse<>("Topics retrieved successfully", HttpStatus.OK.value(), topics));
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new DataResponse<>(e.getMessage(), HttpStatus.NOT_FOUND.value(), Page.empty()));
         }
     }
 }

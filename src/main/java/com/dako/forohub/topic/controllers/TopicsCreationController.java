@@ -1,6 +1,5 @@
 package com.dako.forohub.topic.controllers;
 
-import java.time.LocalDateTime;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,11 +30,16 @@ public class TopicsCreationController {
     }
 
     @PostMapping("new")
-    @Operation(summary = "Create a New Topic", description = "Endpoint to create a new topic in the forum",security = @SecurityRequirement(name = "bearer-key"))
+    @Operation(summary = "Create a New Topic", description = "Endpoint to create a new topic in the forum", security = @SecurityRequirement(name = "bearer-key"))
     public ResponseEntity<ApiResponse> createNewTopic(@RequestBody @Valid TopicCreationRequestDto newTopicRequestDto) {
         try {
-            topicCreationService.createNewTopic(newTopicRequestDto.title(), newTopicRequestDto.message(),
-                    LocalDateTime.now());
+            topicCreationService.createNewTopic(
+                newTopicRequestDto.title(), 
+                newTopicRequestDto.message(),
+                newTopicRequestDto.category(),
+                newTopicRequestDto.courseName(),  // Añade este argumento
+                newTopicRequestDto.getCreatedAt()
+            );
             return ResponseEntity.status(HttpStatus.CREATED)
                     .body(new ApiResponse("Topic created successfully", HttpStatus.CREATED.value()));
         } catch (ResourceNotFoundException e) {

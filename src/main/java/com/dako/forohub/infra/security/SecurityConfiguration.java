@@ -31,17 +31,17 @@ public class SecurityConfiguration {
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
                         .requestMatchers(HttpMethod.POST, "/login").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/signup").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/topics/all").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/topics/{id}/topics").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/topics/{id}").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/users/register").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/topics/public/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/topics/**").authenticated()
                         .requestMatchers(HttpMethod.DELETE, "/topics/**").authenticated()
                         .requestMatchers(HttpMethod.POST, "/topics/**").authenticated()
                         .requestMatchers(HttpMethod.PATCH, "/topics/**").authenticated()
+                        .requestMatchers(HttpMethod.PATCH, "/comments/**").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/comments/**").authenticated()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll()
-                        .anyRequest().permitAll()) // Permitir todas las demás solicitudes
+                        .anyRequest().authenticated())
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
@@ -56,5 +56,4 @@ public class SecurityConfiguration {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
 }

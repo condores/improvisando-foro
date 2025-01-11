@@ -1,9 +1,12 @@
 package com.dako.forohub.topic.services;
 
+import java.util.stream.Collectors;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.dako.forohub.Comments.dtos.CommentDto;
 import com.dako.forohub.authentication.service.AuthorizationService;
 import com.dako.forohub.infra.exceptions.ResourceNotFoundException;
 import com.dako.forohub.topic.domain.Topic;
@@ -19,7 +22,8 @@ public class TopicRetrievalService {
     private final UserRepository userRepository;
     private final AuthorizationService authorizationService;
 
-    public TopicRetrievalService(TopicRepository topicRepository, UserRepository userRepository, AuthorizationService authorizationService) {
+    public TopicRetrievalService(TopicRepository topicRepository, UserRepository userRepository,
+            AuthorizationService authorizationService) {
         this.topicRepository = topicRepository;
         this.userRepository = userRepository;
         this.authorizationService = authorizationService;
@@ -41,7 +45,15 @@ public class TopicRetrievalService {
                 topic.getCreatedAt().toLocalDate(),
                 topic.getStatus(),
                 topic.getAuthor().getName(),
-                topic.getUpdatedAt().toLocalDate()));
+                topic.getUpdatedAt().toLocalDate(),
+                topic.getComments().stream()
+                        .map(comment -> new CommentDto(
+                                comment.getId(),
+                                comment.getMessage(),
+                                comment.getAuthor().getName(),
+                                topic.getId(),
+                                comment.getCreatedAt()))
+                        .collect(Collectors.toList())));
     }
 
     // Muestra todos los temas (GET /topics/all) del foro (con paginación)
@@ -54,7 +66,15 @@ public class TopicRetrievalService {
                 topic.getCreatedAt().toLocalDate(),
                 topic.getStatus(),
                 topic.getAuthor().getName(),
-                topic.getUpdatedAt().toLocalDate()));
+                topic.getUpdatedAt().toLocalDate(),
+                topic.getComments().stream()
+                        .map(comment -> new CommentDto(
+                                comment.getId(),
+                                comment.getMessage(),
+                                comment.getAuthor().getName(),
+                                topic.getId(),
+                                comment.getCreatedAt()))
+                        .collect(Collectors.toList())));
     }
 
     public Page<TopicDto> getMyTopics(Pageable pageable) {
@@ -69,7 +89,15 @@ public class TopicRetrievalService {
                 topic.getCreatedAt().toLocalDate(),
                 topic.getStatus(),
                 topic.getAuthor().getName(),
-                topic.getUpdatedAt().toLocalDate()));
+                topic.getUpdatedAt().toLocalDate(),
+                topic.getComments().stream()
+                        .map(comment -> new CommentDto(
+                                comment.getId(),
+                                comment.getMessage(),
+                                comment.getAuthor().getName(),
+                                topic.getId(),
+                                comment.getCreatedAt()))
+                        .collect(Collectors.toList())));
     }
 
     public TopicDto getById(Long id) {
@@ -82,6 +110,14 @@ public class TopicRetrievalService {
                 topic.getCreatedAt().toLocalDate(),
                 topic.getStatus(),
                 topic.getAuthor().getName(),
-                topic.getUpdatedAt().toLocalDate());
+                topic.getUpdatedAt().toLocalDate(),
+                topic.getComments().stream()
+                        .map(comment -> new CommentDto(
+                                comment.getId(),
+                                comment.getMessage(),
+                                comment.getAuthor().getName(),
+                                topic.getId(),
+                                comment.getCreatedAt()))
+                        .collect(Collectors.toList()));
     }
 }

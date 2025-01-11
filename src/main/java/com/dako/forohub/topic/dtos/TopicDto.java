@@ -1,7 +1,9 @@
 package com.dako.forohub.topic.dtos;
 
 import java.time.LocalDate;
+import java.util.List;
 
+import com.dako.forohub.Comments.dtos.CommentDto;
 import com.dako.forohub.topic.domain.TopicStatusEnum;
 
 public record TopicDto(
@@ -11,7 +13,8 @@ public record TopicDto(
         LocalDate createdAt,
         TopicStatusEnum status,
         String authorName,
-        LocalDate updatedAt
+        LocalDate updatedAt,
+        List<CommentDto> comments
         ) {
 
 }

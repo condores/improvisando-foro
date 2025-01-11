@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS users (
 -- Crear la tabla courses si no existe
 CREATE TABLE IF NOT EXISTS courses (
     id BIGSERIAL PRIMARY KEY,
-    name VARCHAR(50) NOT NULL,
+    name VARCHAR(50) NOT NULL UNIQUE,
     category VARCHAR(50) NOT NULL
 );
 
@@ -32,9 +32,21 @@ CREATE TABLE IF NOT EXISTS topics (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     status VARCHAR(50) NOT NULL,
     author_id BIGINT NOT NULL,
-    category_id BIGINT,
+    category_id BIGINT NOT NULL,
     FOREIGN KEY (author_id) REFERENCES users(id),
     FOREIGN KEY (category_id) REFERENCES courses(id)
+);
+
+-- Crear la tabla comments si no existe
+CREATE TABLE IF NOT EXISTS comments (
+    id BIGSERIAL PRIMARY KEY,
+    message TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    author_id BIGINT NOT NULL,
+    topic_id BIGINT NOT NULL,
+    FOREIGN KEY (author_id) REFERENCES users(id),
+    FOREIGN KEY (topic_id) REFERENCES topics(id)
 );
 
 -- Crear la tabla user_roles para la relación muchos a muchos entre users y roles si no existe
@@ -45,3 +57,11 @@ CREATE TABLE IF NOT EXISTS user_roles (
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (role_id) REFERENCES roles(id)
 );
+
+-- Asegúrate de que la columna 'status' en la tabla 'topics' solo acepte valores válidos
+ALTER TABLE topics
+ADD CONSTRAINT check_topic_status CHECK (status IN ('OPEN', 'CLOSED', 'SOLVED'));
+
+-- Asegúrate de que la columna 'category' en la tabla 'courses' solo acepte valores válidos
+ALTER TABLE courses
+ADD CONSTRAINT check_course_category CHECK (category IN ('BACKEND', 'FRONTEND', 'DATA_SCIENCE', 'MACHINE_LEARNING', 'DEVELOPMENT_OPS'));
