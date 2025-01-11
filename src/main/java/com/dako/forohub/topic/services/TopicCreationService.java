@@ -6,9 +6,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import com.dako.forohub.Course.domain.Course;
-import com.dako.forohub.Course.domain.CourseCategoryEnum;
-import com.dako.forohub.Course.repository.CourseRepository;
+import com.dako.forohub.course.domain.Course;
+import com.dako.forohub.course.domain.CourseCategoryEnum;
+import com.dako.forohub.course.repository.CourseRepository;
 import com.dako.forohub.infra.exceptions.ResourceNotFoundException;
 import com.dako.forohub.topic.domain.Topic;
 import com.dako.forohub.topic.domain.TopicStatusEnum;

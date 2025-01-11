@@ -1,12 +1,12 @@
-package com.dako.forohub.Comments.services;
+package com.dako.forohub.comment.service;
 
 
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import com.dako.forohub.Comments.domain.Comment;
-import com.dako.forohub.Comments.repository.CommentRepository;
+import com.dako.forohub.comment.domain.Comment;
+import com.dako.forohub.comment.repository.CommentRepository;
 import com.dako.forohub.infra.exceptions.ResourceNotFoundException;
 import com.dako.forohub.topic.domain.Topic;
 import com.dako.forohub.topic.repository.TopicRepository;

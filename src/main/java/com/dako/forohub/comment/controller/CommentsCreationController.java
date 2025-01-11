@@ -1,4 +1,4 @@
-package com.dako.forohub.Comments.controller;
+package com.dako.forohub.comment.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.dako.forohub.Comments.dtos.CommentRequestCreationDto;
-import com.dako.forohub.Comments.services.CommentService;
+import com.dako.forohub.comment.dtos.CommentRequestCreationDto;
+import com.dako.forohub.comment.service.CommentService;
 import com.dako.forohub.infra.exceptions.ResourceNotFoundException;
 import com.dako.forohub.infra.responses.ApiResponse;
 

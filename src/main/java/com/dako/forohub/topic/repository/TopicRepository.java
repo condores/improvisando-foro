@@ -7,7 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.lang.NonNull;
 
-import com.dako.forohub.Course.domain.Course;
+import com.dako.forohub.course.domain.Course;
 import com.dako.forohub.topic.domain.Topic;
 
 public interface TopicRepository extends JpaRepository<Topic, Long> {

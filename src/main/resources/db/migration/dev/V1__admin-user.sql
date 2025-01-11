@@ -7,7 +7,7 @@ BEGIN
     IF NOT EXISTS (SELECT 1 FROM users WHERE username = 'admin') THEN
         -- Insertar el usuario 'admin' con la contraseña encriptada
         INSERT INTO users (name, username, email, password, is_active) 
-        VALUES ('admin', 'admin', 'admin@admin.co', '$2a$10$.oPXZRJF/mDE3ZG83Nn8EOFtFEpFEpYEiDFfnRdg2EJOv0Sm74/yu', TRUE)
+        VALUES ('admin', 'admin', 'admin@admin.co', '$2a$10$glQsfBUJbY7YbjnxwEsL8uX5nXgqueaETvib//q41cbsvXrmoaEb2', TRUE)
         RETURNING id INTO admin_user_id;
 
         RAISE NOTICE 'Admin user created with ID: %', admin_user_id;

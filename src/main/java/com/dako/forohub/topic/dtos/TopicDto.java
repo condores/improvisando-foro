@@ -3,7 +3,7 @@ package com.dako.forohub.topic.dtos;
 import java.time.LocalDate;
 import java.util.List;
 
-import com.dako.forohub.Comments.dtos.CommentDto;
+import com.dako.forohub.comment.dtos.CommentDto;
 import com.dako.forohub.topic.domain.TopicStatusEnum;
 
 public record TopicDto(

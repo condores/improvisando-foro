@@ -2,7 +2,7 @@ package com.dako.forohub.topic.dtos;
 
 import java.time.LocalDateTime;
 
-import com.dako.forohub.Course.domain.CourseCategoryEnum;
+import com.dako.forohub.course.domain.CourseCategoryEnum;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

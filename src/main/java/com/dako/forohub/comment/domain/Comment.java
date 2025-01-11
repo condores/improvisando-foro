@@ -1,4 +1,4 @@
-package com.dako.forohub.Comments.domain;
+package com.dako.forohub.comment.domain;
 
 import java.time.LocalDateTime;
 

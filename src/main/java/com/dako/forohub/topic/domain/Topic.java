@@ -4,8 +4,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.dako.forohub.Comments.domain.Comment;
-import com.dako.forohub.Course.domain.Course;
+import com.dako.forohub.comment.domain.Comment;
+import com.dako.forohub.course.domain.Course;
 import com.dako.forohub.user.domain.User;
 
 import jakarta.persistence.CascadeType;

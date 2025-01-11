@@ -6,8 +6,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.dako.forohub.Comments.dtos.CommentDto;
 import com.dako.forohub.authentication.service.AuthorizationService;
+import com.dako.forohub.comment.dtos.CommentDto;
 import com.dako.forohub.infra.exceptions.ResourceNotFoundException;
 import com.dako.forohub.topic.domain.Topic;
 import com.dako.forohub.topic.dtos.TopicDto;

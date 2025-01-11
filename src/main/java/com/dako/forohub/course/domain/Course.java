@@ -1,4 +1,4 @@
-package com.dako.forohub.Course.domain;
+package com.dako.forohub.course.domain;
 
 import java.util.ArrayList;
 import java.util.List;
