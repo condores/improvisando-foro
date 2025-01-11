@@ -11,6 +11,7 @@ ForoHub es una plataforma de foros desarrollada como parte del desafío de Alura
 ## 🌟 Características Principales
 
 ### Seguridad y Autenticación
+
 - 👤 Autenticación y autorización de usuarios
 - 🔒 Implementación de JWT (JSON Web Tokens) para autenticación
 - 🔑 Uso de BCryptPasswordEncoder para encriptar contraseñas
@@ -18,22 +19,25 @@ ForoHub es una plataforma de foros desarrollada como parte del desafío de Alura
 - 🔄 Arquitectura STATELESS para mayor escalabilidad
 
 ### Funcionalidades del Foro
+
 - 📝 Creación y gestión de tópicos de discusión
 - 💬 Sistema de comentarios en tópicos
 - 🏷️ Uso de enums para categorías definidas dentro de las entidades
 
 ### 🛠 API y Manejo de Datos
+
 - Endpoints específicos según roles de usuario
 - Respuestas API personalizadas (DataResponse y ApiResponse)
 - Manejo de excepciones y validaciones de entrada
 - Gestión automática de fechas de creación/actualización (utilizando @PrePersist y @PreUpdate de JPA)
 
 ### Documentación
+
 - 📚 Swagger para documentación de endpoints
 
 ## 🏗 ForoHub: Estructura del Proyecto
 
-ForoHub está diseñado siguiendo una arquitectura modular 
+ForoHub está diseñado siguiendo una arquitectura modular
 
 ```plaintext
 src
@@ -142,16 +146,15 @@ Esta organización facilita el mantenimiento, la escalabilidad y la separación 
 3. **Iniciar Servicios con Docker Compose:**
    Utiliza el mismo archivo Docker Compose para todos los entornos, especificando el perfil adecuado:
 
-   - Para desarrollo: 
+   - Para desarrollo:
      Usa el comando Docker Compose con --profile dev
 
-   - Para producción: 
+   - Para producción:
      Usa el comando Docker Compose con --profile prod
 
-   - Para pruebas: 
+   - Para pruebas:
      Usa el comando Docker Compose con --profile test
 
 4. **Ejecutar la Aplicación:**
 
 5. **Verificar la Aplicación:**
-

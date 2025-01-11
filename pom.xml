@@ -114,7 +114,7 @@
 	<build>
 		<plugins>
 			<plugin>
-				<!-- https://mvnrepository.com/artifact/org.flywaydb/flyway-maven-plugin -->
+				<!-- https://mvnrepository.com/artifact/org.flywaydb/flyway-maven-plugin  DATABASE DEV-->
 				<groupId>org.flywaydb</groupId>
 				<artifactId>flyway-maven-plugin</artifactId>
 				<version>11.1.0</version>

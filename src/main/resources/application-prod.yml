@@ -4,13 +4,13 @@ spring:
       on-profile: prod
   datasource:
     url: ${DATABASE_URL}
-    username: ${POSTGRES_USER_PROD}
-    password: ${PASSWORD_DB_PROD}
+    username: ${DATABASE_USER}
+    password: ${DATABASE_PASSWORD}
     driver-class-name: org.postgresql.Driver
   flyway:
     enabled: true
     locations:
-    - classpath:db/migration/prod
+    - classpath:db/migration
   jpa:
     hibernate:
       ddl-auto: validate
@@ -19,9 +19,12 @@ spring:
       hibernate:
         '[format_sql]': false
         dialect: org.hibernate.dialect.PostgreSQLDialect
+server:
+  port: 8080
 api:
   token:
     security: ${API_TOKEN_SECRET} 
 logging:
   level:
     '[org.flywaydb]': info
+  

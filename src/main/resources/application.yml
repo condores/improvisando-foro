@@ -3,7 +3,7 @@ spring:
     name: forohub
     version: 1
   profiles:
-    active: dev
+    active: prod
   web:
     resources:
       add-mappings: false
