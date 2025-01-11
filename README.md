@@ -6,7 +6,34 @@
 
 ForoHub es una plataforma de foros desarrollada como parte del desafío de Alura Latam. Esta aplicación proporciona un espacio para que los desarrolladores discutan diversos temas, compartan conocimientos y resuelvan dudas en un ambiente colaborativo.
 
+## 👨‍💻 Desarrollador
+
+Adrian Daconte
+
+- 🐱 GitHub: [@Adrian-Daconte](https://github.com/Adrian-Daconte)
+- 💼 LinkedIn: [Adrian Daconte](https://www.linkedin.com/in/adrian-daconte/)
+
 ## 🎥 Demostración del Proyecto
+
+### Video Demostración
+
+Puedes ver el video de demostración aquí:
+
+[![Video Demostración](https://img.youtube.com/vi/XWIvtwVLG_4/0.jpg)](https://youtu.be/XWIvtwVLG_4)
+
+### 🌐 Demostración en Vivo
+
+Puedes ver una demostración en vivo de la aplicación aquí:
+
+[🔗 https://challengealura-forohub.onrender.com/topics/public/search_all](https://challengealura-forohub.onrender.com/topics/public/search_all)
+Este enlace muestra todos los tópicos pre-cargados en la base de datos, demostrando la funcionalidad básica del foro.
+
+> [!NOTE]
+> ⏳ La aplicación está alojada en un servidor gratuito. El primer acceso puede tardar hasta 1-2 minutos mientras el servidor se inicia. Por favor, sea paciente.
+
+Además, puedes explorar todos los endpoints de la aplicación a través de la interfaz de Swagger aquí:
+
+[📘 https://challengealura-forohub.onrender.com/swagger-ui.html](https://challengealura-forohub.onrender.com/swagger-ui.html)
 
 ## 🌟 Características Principales
 
