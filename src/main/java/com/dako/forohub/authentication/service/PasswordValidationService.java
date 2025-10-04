@@ -15,4 +15,9 @@ public class PasswordValidationService {
                     "Password must be between 8 and 11 characters long, contain at least one uppercase letter and one number");
         }
     }
+
+    // Ejemplo: método para verificar si la contraseña contiene un carácter especial
+    public boolean containsSpecialCharacter(String password) {
+        return password.matches(".*[!@#$%^&*(),.?\":{}|<>].*");
+    }
 }
